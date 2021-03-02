@@ -10,7 +10,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Body(),
     );
@@ -70,7 +70,7 @@ class _BodyState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             RaisedButton(
-              child: Text('Sign in'),
+              child: const Text('Sign in'),
               onPressed: () async {
                 await _signInUser(
                   context: context,
@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
               },
             ),
             RaisedButton(
-              child: Text('Sign up'),
+              child: const Text('Sign up'),
               onPressed: () async {
                 await _signUpUser(
                   context: context,
@@ -102,11 +102,15 @@ Future<void> _signUpUser({
   @required String password,
 }) async {
   try {
-    UserCredential userCredential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
       email: email,
       password: password,
-    );
+    )
+        .then((_) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
+    });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
       displayError(
@@ -119,10 +123,7 @@ Future<void> _signUpUser({
         error: 'The account already exists for that email.',
       );
     }
-    return;
   }
-  Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
 }
 
 Future<void> _signInUser({
@@ -131,11 +132,15 @@ Future<void> _signInUser({
   @required String password,
 }) async {
   try {
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
       email: email,
       password: password,
-    );
+    )
+        .then((_) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const HomeScreen()));
+    });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       displayError(
@@ -148,8 +153,5 @@ Future<void> _signInUser({
         error: 'Wrong password provided for that user.',
       );
     }
-    return;
   }
-  Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
 }

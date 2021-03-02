@@ -10,16 +10,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RaisedButton(
-              child: Text('Author Info'),
+              child: const Text('Author Info'),
               onPressed: () async {
-                authorInfoDialog(
+                await authorInfoDialog(
                   context: context,
                   title: 'Info',
                   text: 'Author: Kun Su',
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             RaisedButton(
-              child: Text('Logout'),
+              child: const Text('Logout'),
               onPressed: () async {
                 await _signOut(context: context);
               },
@@ -42,6 +42,6 @@ class HomeScreen extends StatelessWidget {
 Future<void> _signOut({@required BuildContext context}) async {
   final auth = FirebaseAuth.instance;
   await auth.signOut();
-  Navigator.of(context)
+  await Navigator.of(context)
       .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
 }
