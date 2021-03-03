@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/modules/home/home.dart';
 import 'package:jobseeker/modules/verify/screens/verify_screen.dart';
+import 'package:jobseeker/reset/reset.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -95,7 +96,12 @@ class _BodyState extends State<Body> {
               children: [
                 TextButton(
                   child: const Text('Forgot Password?'),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute<ResetScreen>(
+                            builder: (context) => ResetScreen()));
+                  },
                 )
               ],
             )
