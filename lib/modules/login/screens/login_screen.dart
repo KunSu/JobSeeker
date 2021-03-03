@@ -90,6 +90,15 @@ class _BodyState extends State<Body> {
                 );
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: const Text('Forgot Password?'),
+                  onPressed: () {},
+                )
+              ],
+            )
           ],
         )
       ],
@@ -109,8 +118,8 @@ Future<void> _signUpUser({
       password: password,
     )
         .then((_) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => VerifyScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute<VerifyScreen>(
+          builder: (context) => VerifyScreen()));
     });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
@@ -139,8 +148,8 @@ Future<void> _signInUser({
       password: password,
     )
         .then((_) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute<HomeScreen>(
+          builder: (context) => const HomeScreen()));
     });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {

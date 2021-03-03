@@ -42,6 +42,6 @@ class HomeScreen extends StatelessWidget {
 Future<void> _signOut({@required BuildContext context}) async {
   final auth = FirebaseAuth.instance;
   await auth.signOut();
-  await Navigator.of(context)
-      .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+  await Navigator.of(context).pushReplacement(
+      MaterialPageRoute<LoginScreen>(builder: (context) => LoginScreen()));
 }

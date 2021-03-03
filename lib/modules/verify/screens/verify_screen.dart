@@ -48,8 +48,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      await Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+      await Navigator.of(context).pushReplacement(MaterialPageRoute<HomeScreen>(
+          builder: (context) => const HomeScreen()));
     }
   }
 }
