@@ -4,6 +4,7 @@ import 'package:jobseeker/modules/home/home.dart';
 import 'package:jobseeker/modules/reset/reset.dart';
 import 'package:jobseeker/modules/verify/screens/verify_screen.dart';
 import 'package:jobseeker/widgets/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -91,22 +92,32 @@ class _BodyState extends State<Body> {
                 );
               },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  child: const Text('Forgot Password?'),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute<ResetScreen>(
-                            builder: (context) => ResetScreen()));
-                  },
-                )
-              ],
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              child: const Text('Forgot Password?'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute<ResetScreen>(
+                        builder: (context) => ResetScreen()));
+              },
             )
           ],
-        )
+        ),
+        RaisedButton(
+          child: const Text('Google sign in'),
+          onPressed: () {
+            _signInWithGoogle().then((_) {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute<HomeScreen>(
+                      builder: (context) => const HomeScreen()));
+            });
+          },
+        ),
       ],
     );
   }
@@ -170,4 +181,21 @@ Future<void> _signInUser({
       );
     }
   }
+}
+
+Future<UserCredential> _signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  // Create a new credential
+  final OAuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
