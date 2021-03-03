@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/modules/home/home.dart';
+import 'package:jobseeker/modules/verify/screens/verify_screen.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -109,7 +110,7 @@ Future<void> _signUpUser({
     )
         .then((_) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomeScreen()));
+          MaterialPageRoute(builder: (context) => VerifyScreen()));
     });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
