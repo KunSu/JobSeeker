@@ -1,14 +1,21 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:jobseeker/blocs/auth_bloc.dart';
 import 'package:jobseeker/modules/home/home.dart';
 import 'package:jobseeker/modules/reset/reset.dart';
-import 'package:jobseeker/modules/verify/screens/verify_screen.dart';
-import 'package:jobseeker/widgets/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:provider/provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +37,32 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   String _email, _password;
   final auth = FirebaseAuth.instance;
+  StreamSubscription<User> loginStateSubscription;
+
+  @override
+  void initState() {
+    var authBloc = Provider.of<AuthBloc>(context, listen: false);
+    loginStateSubscription = authBloc.currentUser.listen((user) {
+      if (user != null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<HomeScreen>(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginStateSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = Provider.of<AuthBloc>(context);
     return Column(
       children: [
         Padding(
@@ -75,7 +105,7 @@ class _BodyState extends State<Body> {
             RaisedButton(
               child: const Text('Sign in'),
               onPressed: () async {
-                await _signInUser(
+                await authBloc.signInUser(
                   context: context,
                   email: _email,
                   password: _password,
@@ -85,7 +115,7 @@ class _BodyState extends State<Body> {
             RaisedButton(
               child: const Text('Sign up'),
               onPressed: () async {
-                await _signUpUser(
+                await authBloc.signUpUser(
                   context: context,
                   email: _email,
                   password: _password,
@@ -108,94 +138,11 @@ class _BodyState extends State<Body> {
             )
           ],
         ),
-        RaisedButton(
-          child: const Text('Google sign in'),
-          onPressed: () {
-            _signInWithGoogle().then((_) {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute<HomeScreen>(
-                      builder: (context) => const HomeScreen()));
-            });
-          },
+        SignInButton(
+          Buttons.Google,
+          onPressed: authBloc.signInWithGoogle,
         ),
       ],
     );
   }
-}
-
-Future<void> _signUpUser({
-  @required BuildContext context,
-  @required String email,
-  @required String password,
-}) async {
-  try {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    )
-        .then((_) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute<VerifyScreen>(
-          builder: (context) => VerifyScreen()));
-    });
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      displayError(
-        context: context,
-        error: 'The password provided is too weak.',
-      );
-    } else if (e.code == 'email-already-in-use') {
-      displayError(
-        context: context,
-        error: 'The account already exists for that email.',
-      );
-    }
-  }
-}
-
-Future<void> _signInUser({
-  @required BuildContext context,
-  @required String email,
-  @required String password,
-}) async {
-  try {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    )
-        .then((_) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute<HomeScreen>(
-          builder: (context) => const HomeScreen()));
-    });
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      displayError(
-        context: context,
-        error: 'No user found for that email.',
-      );
-    } else if (e.code == 'wrong-password') {
-      displayError(
-        context: context,
-        error: 'Wrong password provided for that user.',
-      );
-    }
-  }
-}
-
-Future<UserCredential> _signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-  // Create a new credential
-  final OAuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
 }
