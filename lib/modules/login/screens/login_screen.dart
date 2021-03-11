@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/auth_bloc.dart';
-import 'package:jobseeker/modules/home/home.dart';
+import 'package:jobseeker/modules/jobboard/jobboard.dart';
 import 'package:jobseeker/modules/reset/reset.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +45,8 @@ class _BodyState extends State<Body> {
     loginStateSubscription = authBloc.currentUser.listen((user) {
       if (user != null) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute<HomeScreen>(
-            builder: (context) => const HomeScreen(),
+          MaterialPageRoute<JobBoardScreen>(
+            builder: (context) => JobBoardScreen(),
           ),
         );
       }

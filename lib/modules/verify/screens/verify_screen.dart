@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jobseeker/modules/home/home.dart';
+import 'package:jobseeker/modules/jobboard/jobboard.dart';
 
 class VerifyScreen extends StatefulWidget {
   VerifyScreen({Key key}) : super(key: key);
@@ -48,8 +48,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      await Navigator.of(context).pushReplacement(MaterialPageRoute<HomeScreen>(
-          builder: (context) => const HomeScreen()));
+      await Navigator.of(context).pushReplacement(
+          MaterialPageRoute<JobBoardScreen>(
+              builder: (context) => JobBoardScreen()));
     }
   }
 }

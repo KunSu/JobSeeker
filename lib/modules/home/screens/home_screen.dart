@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jobseeker/modules/home/home.dart';
-import 'package:jobseeker/widgets/jobboard/jobboard_navigationbar.dart';
+
+import 'package:jobseeker/widgets/jobboard/jobboard.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            // Add your onPressed code here!
+            // TODO: Add your onPressed code here!
           },
           label: const Text('Application'),
           icon: const Icon(Icons.add),

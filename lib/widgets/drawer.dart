@@ -25,7 +25,7 @@ class HomeDrawer extends StatelessWidget {
           ),
           const ListTile(
             leading: Icon(Icons.view_list),
-            title: Text('Job Boards'),
+            title: Text('Job Board'),
           ),
           const ListTile(
             leading: Icon(Icons.person),

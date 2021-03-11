@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:jobseeker/modules/home/home.dart';
+import 'package:jobseeker/modules/jobboard/jobboard.dart';
 import 'package:jobseeker/modules/verify/verify.dart';
 import 'package:jobseeker/service/auth_service.dart';
 import 'package:jobseeker/widgets/widgets.dart';
@@ -76,8 +76,8 @@ class AuthBloc {
         password: password,
       )
           .then((_) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute<HomeScreen>(
-            builder: (context) => const HomeScreen()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute<JobBoardScreen>(
+            builder: (context) => JobBoardScreen()));
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
