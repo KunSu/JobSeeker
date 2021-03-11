@@ -26,14 +26,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 // icon: Icon(Icons.text_fields),
                 text: 'Wishlist',
               ),
-              Text('Applied'),
-              Text('Interview'),
-              Text('Offer'),
-              Text('Rejected'),
+              Tab(
+                text: 'Applied',
+              ),
+              Tab(
+                text: 'Interview',
+              ),
+              Tab(
+                text: 'Offer',
+              ),
+              Tab(
+                text: 'Rejected',
+              ),
             ],
           ),
         ),
-        drawer: const HomeDrawer(),
+        endDrawer: const HomeDrawer(),
         body: const TabBarView(
           // TODO: implement JobListView
           children: [

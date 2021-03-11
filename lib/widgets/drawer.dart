@@ -1,11 +1,43 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/auth_bloc.dart';
+import 'package:jobseeker/modules/login/login.dart';
 import 'package:provider/provider.dart';
 
-class HomeDrawer extends StatelessWidget {
+class HomeDrawer extends StatefulWidget {
   const HomeDrawer({
     Key key,
   }) : super(key: key);
+
+  @override
+  _HomeDrawerState createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  StreamSubscription<User> loginStateSubscription;
+
+  @override
+  void dispose() {
+    loginStateSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    var authBloc = Provider.of<AuthBloc>(context, listen: false);
+    loginStateSubscription = authBloc.currentUser.listen((user) {
+      if (user == null) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute<LoginScreen>(
+            builder: (context) => LoginScreen(),
+          ),
+        );
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

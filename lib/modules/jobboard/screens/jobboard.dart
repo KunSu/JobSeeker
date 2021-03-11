@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobseeker/modules/jobboard/add_board.dart';
 import 'package:jobseeker/modules/jobboard/jobboard.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
@@ -19,10 +20,13 @@ class JobBoardScreen extends StatelessWidget {
           ],
         ),
       ),
-      drawer: const HomeDrawer(),
+      endDrawer: const HomeDrawer(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Add your onPressed code here!
+          Navigator.push(
+              context,
+              MaterialPageRoute<CreateJobBoard>(
+                  builder: (coontext) => CreateJobBoard()));
         },
         label: const Text('Job Board'),
         icon: const Icon(Icons.add),

@@ -17,6 +17,7 @@ class JobListView extends StatefulWidget {
 }
 
 class _JobListViewState extends State<JobListView> {
+  // TODO: Delete Subscription and log out buttom after demo
   StreamSubscription<User> loginStateSubscription;
 
   @override

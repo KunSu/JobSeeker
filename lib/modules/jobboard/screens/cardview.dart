@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobseeker/modules/home/home.dart';
 
 class JobBoardListCardView extends StatefulWidget {
   JobBoardListCardView({Key key}) : super(key: key);
@@ -18,9 +19,6 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
       // This ensures that the Card's children are clipped correctly.
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {
-          print('Card was tapped');
-        },
         // Generally, material cards use onSurface with 12% opacity for the pressed state.
         splashColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
         // Generally, material cards do not have a highlight overlay.
@@ -51,6 +49,12 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
             ],
           ),
         ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute<HomeScreen>(
+                  builder: (coontext) => const HomeScreen()));
+        },
       ),
     );
   }
