@@ -5,7 +5,11 @@ part 'jobboard.g.dart';
 
 @JsonSerializable()
 class JobBoard {
-  JobBoard({this.id, @required this.name, @required this.createdDate});
+  JobBoard({
+    @required this.id,
+    @required this.name,
+    @required this.createdDate,
+  });
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.
