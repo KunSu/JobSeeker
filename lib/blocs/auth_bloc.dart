@@ -1,10 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:jobseeker/modules/jobboard/jobboard.dart';
-import 'package:jobseeker/modules/verify/verify.dart';
 import 'package:jobseeker/service/auth_service.dart';
 import 'package:jobseeker/widgets/widgets.dart';
+import 'package:jobseeker/routes/routes.gr.dart';
 
 class AuthBloc {
   final authService = AuthService();
@@ -14,13 +14,16 @@ class AuthBloc {
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
+    // ignore: omit_local_variable_types
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
+    // ignore: omit_local_variable_types
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
     // Create a new credential
+    // ignore: omit_local_variable_types
     final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
@@ -46,8 +49,9 @@ class AuthBloc {
         password: password,
       )
           .then((_) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute<VerifyScreen>(
-            builder: (context) => VerifyScreen()));
+        ExtendedNavigator.of(context).replace(
+          Routes.verifyScreen,
+        );
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -76,8 +80,9 @@ class AuthBloc {
         password: password,
       )
           .then((_) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute<JobBoardScreen>(
-            builder: (context) => JobBoardScreen()));
+        ExtendedNavigator.of(context).replace(
+          Routes.jobBoardScreen,
+        );
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

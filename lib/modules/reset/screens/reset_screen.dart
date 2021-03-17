@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ResetScreen extends StatelessWidget {
-  ResetScreen({Key key}) : super(key: key);
+  ResetScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ResetScreen extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
-  Body({Key key}) : super(key: key);
+  Body();
 
   @override
   _BodyState createState() => _BodyState();
@@ -77,6 +78,6 @@ void _resetPassword({
     content: Text('An email has been sent to $email'),
   ));
   Timer(const Duration(seconds: 2), () {
-    Navigator.pop(context);
+    ExtendedNavigator.of(context).pop();
   });
 }

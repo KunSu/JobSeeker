@@ -1,11 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/auth_bloc.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/modules/login/login.dart';
 import 'package:provider/provider.dart';
+import 'package:jobseeker/routes/routes.gr.dart' as r;
 
 class App extends StatelessWidget {
-  const App({Key key}) : super(key: key);
+  const App();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,9 @@ class App extends StatelessWidget {
             ),
           ),
           home: LoginScreen(),
+          builder: ExtendedNavigator.builder<r.Router>(
+            router: r.Router(),
+          ),
         ),
       ),
     );

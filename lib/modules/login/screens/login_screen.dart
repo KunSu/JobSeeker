@@ -1,15 +1,15 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/auth_bloc.dart';
-import 'package:jobseeker/modules/jobboard/jobboard.dart';
-import 'package:jobseeker/modules/reset/reset.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
+import 'package:jobseeker/routes/routes.gr.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key}) : super(key: key);
+  LoginScreen();
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -22,19 +22,19 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Body(),
+      body: LoginForm(),
     );
   }
 }
 
-class Body extends StatefulWidget {
-  Body({Key key}) : super(key: key);
+class LoginForm extends StatefulWidget {
+  LoginForm();
 
   @override
-  _BodyState createState() => _BodyState();
+  _LoginFormState createState() => _LoginFormState();
 }
 
-class _BodyState extends State<Body> {
+class _LoginFormState extends State<LoginForm> {
   String _email, _password;
   final auth = FirebaseAuth.instance;
   StreamSubscription<User> loginStateSubscription;
@@ -44,10 +44,8 @@ class _BodyState extends State<Body> {
     var authBloc = Provider.of<AuthBloc>(context, listen: false);
     loginStateSubscription = authBloc.currentUser.listen((user) {
       if (user != null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute<JobBoardScreen>(
-            builder: (context) => JobBoardScreen(),
-          ),
+        ExtendedNavigator.of(context).replace(
+          Routes.jobBoardScreen,
         );
       }
     });
@@ -130,10 +128,9 @@ class _BodyState extends State<Body> {
             TextButton(
               child: const Text('Forgot Password?'),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute<ResetScreen>(
-                        builder: (context) => ResetScreen()));
+                ExtendedNavigator.of(context).push(
+                  Routes.resetScreen,
+                );
               },
             )
           ],

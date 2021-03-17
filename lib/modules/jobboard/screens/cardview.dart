@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/models/jobboard.dart';
-import 'package:jobseeker/modules/home/home.dart';
 import 'package:jobseeker/modules/jobboard/jobboard.dart';
+import 'package:jobseeker/routes/routes.gr.dart';
 
 class JobBoardListCardView extends StatefulWidget {
   JobBoardListCardView({
@@ -59,6 +60,7 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
                   padding: const EdgeInsets.all(0.0),
                   icon: const Icon(Icons.edit),
                   onPressed: () {
+                    // TODO: Change navigator
                     Navigator.push(
                         context,
                         MaterialPageRoute<CreateJobBoard>(
@@ -67,10 +69,9 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
                   },
                 ),
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute<HomeScreen>(
-                          builder: (coontext) => const HomeScreen()));
+                  ExtendedNavigator.of(context).push(
+                    Routes.homeScreen,
+                  );
                 },
               ),
             ],

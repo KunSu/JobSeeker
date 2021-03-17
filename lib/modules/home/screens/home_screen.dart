@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:jobseeker/widgets/jobboard/jobboard.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  HomeScreen();
 
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

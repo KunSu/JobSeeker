@@ -1,13 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/models/jobboard.dart';
-
 import 'package:jobseeker/modules/jobboard/jobboard.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 
 class JobBoardScreen extends StatelessWidget {
-  JobBoardScreen({Key key}) : super(key: key);
+  JobBoardScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,15 @@ class JobBoardScreen extends StatelessWidget {
       endDrawer: const HomeDrawer(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          // TODO: Change navigator
           Navigator.push(
-              context,
-              MaterialPageRoute<CreateJobBoard>(
-                  builder: (coontext) => CreateJobBoard()));
+            context,
+            MaterialPageRoute<CreateJobBoard>(
+              builder: (coontext) => CreateJobBoard(
+                jobBoard: null,
+              ),
+            ),
+          );
         },
         label: const Text('Job Board'),
         icon: const Icon(Icons.add),

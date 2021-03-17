@@ -1,9 +1,10 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/auth_bloc.dart';
-import 'package:jobseeker/modules/login/login.dart';
+import 'package:jobseeker/routes/routes.gr.dart';
 import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -29,10 +30,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
     var authBloc = Provider.of<AuthBloc>(context, listen: false);
     loginStateSubscription = authBloc.currentUser.listen((user) {
       if (user == null) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute<LoginScreen>(
-            builder: (context) => LoginScreen(),
-          ),
+        ExtendedNavigator.of(context).replace(
+          Routes.loginScreen,
         );
       }
     });

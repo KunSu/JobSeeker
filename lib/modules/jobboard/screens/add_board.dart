@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/models/jobboard.dart';
@@ -44,7 +45,9 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
     return Scaffold(
       appBar: AppBar(
         // TODO: Fix title
-        title: const Text('Add a Board'),
+        title: (widget.jobBoard == null)
+            ? const Text('Add a Board')
+            : const Text('Update board'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -57,7 +60,7 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
                   labelText: 'Board name',
                   hintText: (widget.jobBoard == null)
                       ? 'Board name'
-                      : boardController.text,
+                      : widget.jobBoard.name,
                   prefixIcon: const Icon(Icons.edit)),
             ),
             // TODO: Need a better buttom UI
@@ -70,7 +73,7 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
                 textColor: Colors.white,
                 onPressed: () {
                   boardsProvider.saveJobBoard();
-                  Navigator.of(context).pop();
+                  ExtendedNavigator.of(context).pop();
                 },
               ),
             ),
@@ -84,7 +87,7 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
                       textColor: Colors.white,
                       onPressed: () {
                         boardsProvider.removeJobBoard(widget.jobBoard.id);
-                        Navigator.of(context).pop();
+                        ExtendedNavigator.of(context).pop();
                       },
                     ),
                   )

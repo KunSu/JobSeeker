@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 Future<void> authorInfoDialog({
@@ -22,7 +23,7 @@ Future<void> authorInfoDialog({
           TextButton(
             child: const Text('Back'),
             onPressed: () {
-              Navigator.of(context).pop();
+              ExtendedNavigator.of(context).pop();
             },
           ),
         ],
