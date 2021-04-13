@@ -10,14 +10,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/home/home.dart';
-import '../modules/jobboard/screens/screens.dart';
+import '../modules/jobboard/jobboard.dart';
 import '../modules/login/login.dart';
 import '../modules/reset/reset.dart';
-import '../modules/verify/screens/verify_screen.dart';
+import '../modules/verify/verify.dart';
 
 class Routes {
   static const String loginScreen = '/';
-  static const String homeScreen = 'homoe';
+  static const String homeScreen = '/home';
   static const String jobBoardScreen = '/jobboard';
   static const String resetScreen = '/reset';
   static const String verifyScreen = '/verify';
