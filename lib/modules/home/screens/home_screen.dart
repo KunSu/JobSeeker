@@ -9,14 +9,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Home'),
           bottom: const TabBar(
             isScrollable: true,
             tabs: [
-              // TODO: Add icon?
+              Tab(
+                text: 'All',
+              ),
               Tab(
                 // icon: Icon(Icons.text_fields),
                 text: 'Wishlist',
@@ -40,6 +42,7 @@ class HomeScreen extends StatelessWidget {
         body: const TabBarView(
           // TODO: implement JobListView
           children: [
+            JobListView(),
             JobListView(),
             JobListView(),
             JobListView(),

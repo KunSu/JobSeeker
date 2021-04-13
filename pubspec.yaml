@@ -41,6 +41,19 @@ dependencies:
 
   # Route
   auto_route: ^0.6.7
+
+  # env
+  flutter_dotenv: ^3.1.0
+
+  # Map
+  google_maps_flutter: ^1.2.0
+  http: ^0.12.0+4
+
+  # Search Bar
+  material_floating_search_bar: ^0.2.6
+  geolocator: ^5.3.1
+
+  connectivity: ^2.0.2
   
 dev_dependencies:
   flutter_test:
@@ -55,3 +68,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - .env

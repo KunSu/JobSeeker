@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/models/jobboard.dart';
@@ -16,6 +15,7 @@ class JobBoardScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Job Boards'),
       ),
+      // TODO: List<JobBoard> can be null, fix it.
       body: StreamBuilder<List<JobBoard>>(
         stream: boardsProvider.boards,
         builder: (context, snapshot) {

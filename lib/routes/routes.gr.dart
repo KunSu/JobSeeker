@@ -10,23 +10,26 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/home/home.dart';
-import '../modules/jobboard/screens/screens.dart';
+import '../modules/jobboard/jobboard.dart';
 import '../modules/login/login.dart';
+import '../modules/map/map.dart';
 import '../modules/reset/reset.dart';
-import '../modules/verify/screens/verify_screen.dart';
+import '../modules/verify/verify.dart';
 
 class Routes {
   static const String loginScreen = '/';
-  static const String homeScreen = 'homoe';
+  static const String homeScreen = '/home';
   static const String jobBoardScreen = '/jobboard';
   static const String resetScreen = '/reset';
   static const String verifyScreen = '/verify';
+  static const String mapScreen = '/map';
   static const all = <String>{
     loginScreen,
     homeScreen,
     jobBoardScreen,
     resetScreen,
     verifyScreen,
+    mapScreen,
   };
 }
 
@@ -39,6 +42,7 @@ class Router extends RouterBase {
     RouteDef(Routes.jobBoardScreen, page: JobBoardScreen),
     RouteDef(Routes.resetScreen, page: ResetScreen),
     RouteDef(Routes.verifyScreen, page: VerifyScreen),
+    RouteDef(Routes.mapScreen, page: MapScreen),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -70,6 +74,12 @@ class Router extends RouterBase {
     VerifyScreen: (data) {
       return MaterialPageRoute<VerifyScreen>(
         builder: (context) => VerifyScreen(),
+        settings: data,
+      );
+    },
+    MapScreen: (data) {
+      return MaterialPageRoute<MapScreen>(
+        builder: (context) => MapScreen(),
         settings: data,
       );
     },

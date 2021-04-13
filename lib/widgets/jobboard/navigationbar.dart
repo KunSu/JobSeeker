@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobseeker/routes/routes.gr.dart';
 
 class JobBoardBottomNavigationBar extends StatefulWidget {
   JobBoardBottomNavigationBar({
@@ -19,18 +20,18 @@ class _JobBoardBottomNavigationBarState
   // TODO: Clear up
   @override
   Widget build(BuildContext context) {
-    // final currentRoute = ModalRoute.of(context).settings.name;
-    // switch (currentRoute) {
-    //   case '/account':
-    //     _selectedIndex = 1;
-    //     break;
-    //   case '/item':
-    //     _selectedIndex = 2;
-    //     break;
-    //   default:
-    //     _selectedIndex = 0;
-    //     break;
-    // }
+    final currentRoute = ModalRoute.of(context).settings.name;
+    switch (currentRoute) {
+      case '${Routes.homeScreen}':
+        _selectedIndex = 0;
+        break;
+      case '${Routes.mapScreen}':
+        _selectedIndex = 1;
+        break;
+      default:
+        _selectedIndex = 0;
+        break;
+    }
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         const BottomNavigationBarItem(
@@ -38,8 +39,8 @@ class _JobBoardBottomNavigationBarState
           label: 'Job Board',
         ),
         const BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'TDB',
+          icon: Icon(Icons.map_outlined),
+          label: 'Map',
         ),
       ],
       currentIndex: _selectedIndex,
@@ -68,13 +69,17 @@ class _JobBoardBottomNavigationBarState
     // }
     setState(() {
       _selectedIndex = index;
-      // if (_selectedIndex == 0) {
-      //   if (ModalRoute.of(context).settings.name != _homeRouteName) {
-      //     Navigator.pushReplacementNamed(context, _homeRouteName);
-      //   }
-      // } else if (_selectedIndex == 1) {
-      //   Navigator.pushReplacementNamed(context, AccountPage.routeName);
-      // } else if (_selectedIndex == 2) {
+      final _screenName = ModalRoute.of(context).settings.name;
+      if (_selectedIndex == 0) {
+        if (_screenName != Routes.homeScreen) {
+          Navigator.pushReplacementNamed(context, Routes.homeScreen);
+        }
+      } else if (_selectedIndex == 1) {
+        if (_screenName != Routes.mapScreen) {
+          Navigator.pushReplacementNamed(context, Routes.mapScreen);
+        }
+      }
+      // else if (_selectedIndex == 2) {
       //   Navigator.pushReplacementNamed(context, ItemPage.routeName);
       // }
     });
