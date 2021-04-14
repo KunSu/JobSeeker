@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:jobseeker/models/jobboard.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   // Get
-  Stream<List<JobBoard>> getJobBoards() {
+  Stream<List<JobBoard>> getJobBoards({@required String uid}) {
+    // TODO: get documents by id
     return _db.collection('boards').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => JobBoard.fromJson(doc.data())).toList()
           ..sort((a, b) => b.createdDate

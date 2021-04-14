@@ -14,7 +14,6 @@ class JobBoardScreen extends StatefulWidget {
 
 class _JobBoardScreenState extends State<JobBoardScreen> {
   BoardsProvider boardsProvider;
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

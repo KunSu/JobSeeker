@@ -9,6 +9,7 @@ part of 'jobboard.dart';
 JobBoard _$JobBoardFromJson(Map<String, dynamic> json) {
   return JobBoard(
     id: json['id'] as String,
+    uid: json['uid'] as String,
     name: json['name'] as String,
     createdDate: json['createdDate'] as String,
   );
@@ -16,6 +17,7 @@ JobBoard _$JobBoardFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$JobBoardToJson(JobBoard instance) => <String, dynamic>{
       'id': instance.id,
+      'uid': instance.uid,
       'name': instance.name,
       'createdDate': instance.createdDate,
     };

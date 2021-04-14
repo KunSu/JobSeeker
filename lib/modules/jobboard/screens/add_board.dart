@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:jobseeker/blocs/auth_bloc.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/models/jobboard.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,28 @@ class CreateJobBoard extends StatefulWidget {
 
 class _CreateJobBoardState extends State<CreateJobBoard> {
   final boardController = TextEditingController();
+  BoardsProvider boardsProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    boardsProvider = Provider.of<BoardsProvider>(context, listen: false);
+    if (widget.jobBoard != null) {
+      // Update
+      boardsProvider.loadAll(widget.jobBoard);
+    } else {
+      // Add
+      boardsProvider.loadAll(null);
+    }
+
+    // Set boardsProvider UID
+    var authBloc = Provider.of<AuthBloc>(context, listen: false);
+    authBloc.currentUser.listen((user) {
+      if (user != null) {
+        boardsProvider.setUID = user.email;
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -26,22 +49,7 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    final boardsProvider = Provider.of<BoardsProvider>(context, listen: false);
-    if (widget.jobBoard != null) {
-      // Update
-      boardsProvider.loadAll(widget.jobBoard);
-    } else {
-      // Add
-      boardsProvider.loadAll(null);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final boardsProvider = Provider.of<BoardsProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         // TODO: Fix title

@@ -7,6 +7,7 @@ part 'jobboard.g.dart';
 class JobBoard {
   JobBoard({
     @required this.id,
+    @required this.uid,
     @required this.name,
     @required this.createdDate,
   });
@@ -24,6 +25,10 @@ class JobBoard {
 
   @JsonKey(name: 'id')
   final String id;
+
+  @JsonKey(name: 'uid')
+  @JsonKey(required: true)
+  final String uid;
 
   @JsonKey(name: 'name')
   @JsonKey(required: true)

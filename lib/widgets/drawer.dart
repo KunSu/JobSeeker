@@ -20,12 +20,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
   StreamSubscription<User> loginStateSubscription;
 
   @override
-  void dispose() {
-    loginStateSubscription.cancel();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     var authBloc = Provider.of<AuthBloc>(context, listen: false);
     loginStateSubscription = authBloc.currentUser.listen((user) {
@@ -36,6 +30,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginStateSubscription.cancel();
+    super.dispose();
   }
 
   @override

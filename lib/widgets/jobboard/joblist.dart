@@ -22,12 +22,6 @@ class _JobListViewState extends State<JobListView> {
   StreamSubscription<User> loginStateSubscription;
 
   @override
-  void dispose() {
-    loginStateSubscription.cancel();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     var authBloc = Provider.of<AuthBloc>(context, listen: false);
     loginStateSubscription = authBloc.currentUser.listen((user) {
@@ -38,6 +32,12 @@ class _JobListViewState extends State<JobListView> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    loginStateSubscription.cancel();
+    super.dispose();
   }
 
   @override
