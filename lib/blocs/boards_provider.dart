@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobseeker/models/jobboard.dart';
 import 'package:jobseeker/service/firestore_service.dart';
@@ -5,7 +6,9 @@ import 'package:uuid/uuid.dart';
 
 // TODO: upgrade Provoder to BLOC
 class BoardsProvider with ChangeNotifier {
+  final auth = FirebaseAuth.instance;
   final firestoreService = FirestoreService();
+  User _user;
   String _id;
   String _uid;
   String _name;
@@ -23,11 +26,8 @@ class BoardsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  set setUID(String email) {
-    _uid = uuid.v5(Uuid.NAMESPACE_URL, email);
-  }
-
   void loadAll(JobBoard jobBoard) {
+    _user = auth.currentUser;
     if (jobBoard != null) {
       _id = jobBoard.id;
       _uid = jobBoard.uid;
@@ -35,7 +35,7 @@ class BoardsProvider with ChangeNotifier {
       _createdDate = jobBoard.createdDate;
     } else {
       _id = null;
-      _uid = null;
+      _uid = _user.uid;
       _name = null;
       _createdDate = DateTime.now().toIso8601String();
     }

@@ -78,6 +78,10 @@ class _JobListViewState extends State<JobListView> {
                     radius: 45.0,
                   ),
                 ),
+                Text(
+                  snapshot.data.uid,
+                  style: const TextStyle(fontSize: 20.0),
+                ),
                 const SizedBox(
                   height: 100.0,
                 ),

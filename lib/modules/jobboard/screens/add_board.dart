@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:jobseeker/blocs/auth_bloc.dart';
 import 'package:jobseeker/blocs/boards_provider.dart';
 import 'package:jobseeker/models/jobboard.dart';
 import 'package:provider/provider.dart';
@@ -32,14 +31,6 @@ class _CreateJobBoardState extends State<CreateJobBoard> {
       // Add
       boardsProvider.loadAll(null);
     }
-
-    // Set boardsProvider UID
-    var authBloc = Provider.of<AuthBloc>(context, listen: false);
-    authBloc.currentUser.listen((user) {
-      if (user != null) {
-        boardsProvider.setUID = user.email;
-      }
-    });
   }
 
   @override
