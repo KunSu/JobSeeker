@@ -22,7 +22,7 @@ class _JobBoardBottomNavigationBarState
   Widget build(BuildContext context) {
     final currentRoute = ModalRoute.of(context).settings.name;
     switch (currentRoute) {
-      case '${Routes.homeScreen}':
+      case '${Routes.boardScreen}':
         _selectedIndex = 0;
         break;
       // case '${Routes.mapScreen}':
@@ -71,8 +71,8 @@ class _JobBoardBottomNavigationBarState
       _selectedIndex = index;
       final _screenName = ModalRoute.of(context).settings.name;
       if (_selectedIndex == 0) {
-        if (_screenName != Routes.homeScreen) {
-          Navigator.pushReplacementNamed(context, Routes.homeScreen);
+        if (_screenName != Routes.boardScreen) {
+          Navigator.pushReplacementNamed(context, Routes.boardScreen);
         }
       } else if (_selectedIndex == 1) {
         // if (_screenName != Routes.mapScreen) {

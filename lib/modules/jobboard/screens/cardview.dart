@@ -45,6 +45,7 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
                     Row(
                       children: [
                         // TODO: extract common values
+                        // TODO: get the value from firestore
                         const JobBoardGrid(number: '110', status: 'Applied'),
                         const JobBoardGrid(number: '5', status: 'Rejected'),
                         const JobBoardGrid(number: '20', status: 'Interview'),
@@ -70,7 +71,8 @@ class JobBoardListCardViewState extends State<JobBoardListCardView> {
                 ),
                 onTap: () {
                   ExtendedNavigator.of(context).push(
-                    Routes.homeScreen,
+                    Routes.boardScreen,
+                    arguments: BoardScreenArguments(boardId: widget.board.id),
                   );
                 },
               ),

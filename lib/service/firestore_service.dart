@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:jobseeker/models/jobboard.dart';
+import 'package:jobseeker/models/models.dart';
 
 class FirestoreService {
   final auth = FirebaseAuth.instance;
@@ -11,7 +11,6 @@ class FirestoreService {
   // Get
   Stream<List<JobBoard>> getJobBoards({@required String uid}) {
     _user = auth.currentUser;
-    // TODO: get documents by id
     return _db
         .collection('boards')
         .where('uid', isEqualTo: _user.uid)

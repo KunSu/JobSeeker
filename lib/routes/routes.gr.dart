@@ -9,7 +9,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../modules/home/home.dart';
+import '../modules/board/board.dart';
 import '../modules/jobboard/jobboard.dart';
 import '../modules/login/login.dart';
 import '../modules/reset/reset.dart';
@@ -17,13 +17,13 @@ import '../modules/verify/verify.dart';
 
 class Routes {
   static const String loginScreen = '/';
-  static const String homeScreen = '/home';
+  static const String boardScreen = '/board';
   static const String jobBoardScreen = '/jobboard';
   static const String resetScreen = '/reset';
   static const String verifyScreen = '/verify';
   static const all = <String>{
     loginScreen,
-    homeScreen,
+    boardScreen,
     jobBoardScreen,
     resetScreen,
     verifyScreen,
@@ -35,7 +35,7 @@ class Router extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.loginScreen, page: LoginScreen),
-    RouteDef(Routes.homeScreen, page: HomeScreen),
+    RouteDef(Routes.boardScreen, page: BoardScreen),
     RouteDef(Routes.jobBoardScreen, page: JobBoardScreen),
     RouteDef(Routes.resetScreen, page: ResetScreen),
     RouteDef(Routes.verifyScreen, page: VerifyScreen),
@@ -49,9 +49,10 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    HomeScreen: (data) {
-      return MaterialPageRoute<HomeScreen>(
-        builder: (context) => HomeScreen(),
+    BoardScreen: (data) {
+      final args = data.getArgs<BoardScreenArguments>(nullOk: false);
+      return MaterialPageRoute<BoardScreen>(
+        builder: (context) => BoardScreen(boardId: args.boardId),
         settings: data,
       );
     },
@@ -74,4 +75,14 @@ class Router extends RouterBase {
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// BoardScreen arguments holder class
+class BoardScreenArguments {
+  final String boardId;
+  BoardScreenArguments({@required this.boardId});
 }

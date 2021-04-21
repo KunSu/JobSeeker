@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jobseeker/modules/applications/applications.dart';
 
 import 'package:jobseeker/widgets/jobboard/jobboard.dart';
 import 'package:jobseeker/widgets/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen();
+class BoardScreen extends StatelessWidget {
+  BoardScreen({@required this.boardId});
+  final String boardId;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,6 @@ class HomeScreen extends StatelessWidget {
                 text: 'All',
               ),
               Tab(
-                // icon: Icon(Icons.text_fields),
                 text: 'Wishlist',
               ),
               Tab(
@@ -40,20 +41,40 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         endDrawer: const HomeDrawer(),
-        body: const TabBarView(
-          // TODO: implement JobListView
+        body: TabBarView(
           children: [
-            JobListView(),
-            JobListView(),
-            JobListView(),
-            JobListView(),
-            JobListView(),
-            JobListView(),
+            // TODO: filtering
+            ApplicationsListView(
+              boardId: boardId,
+            ),
+            ApplicationsListView(
+              boardId: boardId,
+            ),
+            ApplicationsListView(
+              boardId: boardId,
+            ),
+            ApplicationsListView(
+              boardId: boardId,
+            ),
+            ApplicationsListView(
+              boardId: boardId,
+            ),
+            ApplicationsListView(
+              boardId: boardId,
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            // TODO: Add your onPressed code here!
+            Navigator.push(
+              context,
+              MaterialPageRoute<ApplicationDetailPage>(
+                builder: (coontext) => ApplicationDetailPage(
+                  application: null,
+                  boardId: boardId,
+                ),
+              ),
+            );
           },
           label: const Text('Application'),
           icon: const Icon(Icons.add),
