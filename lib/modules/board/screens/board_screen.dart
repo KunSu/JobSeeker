@@ -43,24 +43,29 @@ class BoardScreen extends StatelessWidget {
         endDrawer: const HomeDrawer(),
         body: TabBarView(
           children: [
-            // TODO: filtering
             ApplicationsListView(
               boardId: boardId,
+              status: 'All',
             ),
             ApplicationsListView(
               boardId: boardId,
+              status: 'Wishlist',
             ),
             ApplicationsListView(
               boardId: boardId,
+              status: 'Applied',
             ),
             ApplicationsListView(
               boardId: boardId,
+              status: 'Interview',
             ),
             ApplicationsListView(
               boardId: boardId,
+              status: 'Offer',
             ),
             ApplicationsListView(
               boardId: boardId,
+              status: 'Rejected',
             ),
           ],
         ),
