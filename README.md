@@ -1,6 +1,7 @@
 # jobseeker
 
-A new Flutter project.
+## Summary
+JobSeeker aims to help job seekers to collect, track and manage user's job applications from across the web using Flutter and Google Cloud (Firebase). Centralize your job search and gathering informations you need among your journey.
 
 ## Getting Started
 
